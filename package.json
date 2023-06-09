@@ -1,0 +1,42 @@
+{
+  "name": "docker-node-http-proxy",
+  "version": "1.0.0",
+  "description": "A simple HTTP proxy running in Node.js within a Docker container.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "DEBUG=http-proxy-middleware* node index.js",
+    "start": "node index.js",
+    "docker:build": "docker build . -t ggondim/docker-node-http-proxy",
+    "docker:id": "docker ps -q --filter ancestor=ggondim/docker-node-http-proxy",
+    "docker:run": "docker run -p 80:3080 -d ggondim/docker-node-http-proxy && npm run docker:id",
+    "docker:stop": "docker stop $(docker ps -q --filter ancestor=ggondim/docker-node-http-proxy)",
+    "docker:start": "npm run docker:build && npm run docker:run",
+    "docker:restart": "npm run docker:stop && npm run docker:start",
+    "test": "npm run docker:start && sleep 2 && curl -i http://localhost/google && npm run docker:stop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ggondim/docker-node-http-proxy.git"
+  },
+  "keywords": [
+    "docker",
+    "node",
+    "nodejs",
+    "http",
+    "proxy"
+  ],
+  "author": {
+    "name": "Gustavo Gondim",
+    "email": "gustavospgondim@gmail.com",
+    "url": "https://github.com/ggondim"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ggondim/docker-node-http-proxy/issues"
+  },
+  "homepage": "https://github.com/ggondim/docker-node-http-proxy#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}

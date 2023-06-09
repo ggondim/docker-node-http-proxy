@@ -1,0 +1,10 @@
+[
+  {
+    "target": "https://google.com",
+    "changeOrigin": true,
+    "pathFilter": "/google**",
+    "followRedirects": true,
+    "prependPath": true,
+    "ignorePath": true
+  }
+]
